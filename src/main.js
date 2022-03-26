@@ -8,7 +8,7 @@ import router from './router'
 import VueAxios from 'vue-axios'
 import axios from "axios";
 import store from './store/index'
-
+import 'animate.css';
 
 Vue.config.productionTip = false
 

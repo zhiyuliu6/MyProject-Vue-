@@ -20,5 +20,6 @@ export default {
         width: 100%;
         line-height: 70px;
         background-color: #e9eef3;
+        overflow-y: hidden;
 }
 </style>

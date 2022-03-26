@@ -96,7 +96,7 @@ export default {
                                 },
                                 tooltip: {
                                         trigger: 'item',
-                                        formatter: '{b}：{c} (km²)'
+                                        formatter: '{b}：{c} (m²)'
                                 },
                                 legend: {
                                         orient: 'vertical',
@@ -225,7 +225,7 @@ export default {
                                         num:[]
                                 }
                                 let b = response.data
-                                for(let j = 0; j < b.length; j++) {
+                                for(let j = 0; j < b.length-1; j++) {
                                         this.treeType.type.push(b[j].type)
                                         this.treeType.num.push(b[j].total)
                                 }

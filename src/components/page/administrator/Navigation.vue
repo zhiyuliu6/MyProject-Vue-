@@ -17,26 +17,17 @@
                                 <el-menu-item  index="/regionalInfo">Partition Information</el-menu-item>
                 </el-submenu>
 
-                <el-submenu index="3" >
-                        <template slot="title"><i class="nav el-icon-light-rain">&nbsp; &nbsp;&nbsp; &nbsp;Weather</i></template>
-                       
-                                <el-menu-item  index="3-1">Current Weather</el-menu-item>
-                                <el-menu-item  index="3-2">Historical Weather</el-menu-item>
-
-                </el-submenu>
-
-                <el-submenu index="4">
+                <el-submenu index="3">
                         <template slot="title"><i class="nav el-icon-s-order">&nbsp; &nbsp;&nbsp; &nbsp;Assignment</i></template>
-                       
-                                <el-menu-item  index="4-1">Assignment List</el-menu-item>
-                                <el-menu-item  index="4-2">Post Assignment</el-menu-item>
+                                <el-menu-item  index="/assignmentList">Assignment List</el-menu-item>
+                                <el-menu-item  index="/addAssignment">Post Assignment</el-menu-item>
 
                 </el-submenu>
 
                 <el-submenu index="5">
                                 <template slot="title"><i class="nav el-icon-document-checked">&nbsp; &nbsp;&nbsp; &nbsp;Approval</i></template>
 
-                                        <el-menu-item  index="5-1">Apply List</el-menu-item>
+                                        <el-menu-item  index="/applyList">Apply List</el-menu-item>
                                         <el-menu-item  index="5-2">Approval History</el-menu-item>
                         </el-submenu>
 

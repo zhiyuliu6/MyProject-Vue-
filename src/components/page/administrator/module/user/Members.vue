@@ -1,68 +1,71 @@
 <template>
-<div class="main">
-        <div class="setting">
-                <el-input v-model="keyWord" @keyup.enter.native="searchUser"  placeholder="Please Enter The Staff Leader Name"></el-input>
-                <el-button @click="searchUser"  type="primary" icon="el-icon-search">Search</el-button>
-                <el-button @click="reset" type="primary" icon="el-icon-refresh-left">Reset</el-button>
-                <el-switch
-                        style="padding-left: 100px"
-                        v-model="isFilter"
-                        active-text="Filtrate"
-                        inactive-text="All Leaders">
-                </el-switch>
+        <transition appear enter-active-class="animate__fadeIn" name="animate__animated animate__bounce">
+                <div class="main">
+                        <div class="setting">
+                                <el-input v-model="keyWord" @keyup.enter.native="searchUser"  placeholder="Please Enter The Staff Leader Name"></el-input>
+                                <el-button @click="searchUser"  type="primary" icon="el-icon-search">Search</el-button>
+                                <el-button @click="reset" type="primary" icon="el-icon-refresh-left">Reset</el-button>
+                                <el-switch
+                                        style="padding-left: 100px"
+                                        v-model="isFilter"
+                                        active-text="Filtrate"
+                                        inactive-text="All Leaders">
+                                </el-switch>
 
-                <el-tooltip class="item" effect="dark" content="Turn on the switch to filter team leaders who have not yet been assigned employees" placement="right-end">
-                        <i style="padding-left: 10px" class="el-icon-info"></i>
-                </el-tooltip>
+                                <el-tooltip class="item" effect="dark" content="Turn on the switch to filter team leaders who have not yet been assigned employees" placement="right-end">
+                                        <i style="padding-left: 10px" class="el-icon-info"></i>
+                                </el-tooltip>
 
-                <el-button @click="Initialization" style="float: right;margin-right: 30px;margin-top: 14.5px" type="info" icon="el-icon-delete">Initialization</el-button>
-        </div>
+                                <el-button @click="Initialization" style="float: right;margin-right: 30px;margin-top: 14.5px" type="info" icon="el-icon-delete">Initialization</el-button>
+                        </div>
 
-        <div class="showLeaders">
-                <el-empty style="padding-top: 100px" v-if="filLeaders.length===0" description="404"></el-empty>
-                <div :class="{selectStyle:index===currentSelect}" @click="isSelect(index)" class="LeaderName" v-for="(p,index) in filLeaders" :key="p.id">
-                        <p style="flex: auto;line-height: 4;float: left;padding-left: 20px;pointer-events: none;">{{p.name}}</p>
-                        <el-button @click="addMember(p)" style="float: right;font-size: 5px;line-height: 1;margin-top: 6%;margin-right: 10px" type="primary" icon="el-icon-plus" circle></el-button>
+                        <div class="showLeaders">
+                                <el-empty style="padding-top: 100px" v-if="filLeaders.length===0" description="404"></el-empty>
+                                <div :class="{selectStyle:index===currentSelect}" @click="isSelect(index)" class="LeaderName" v-for="(p,index) in filLeaders" :key="p.id">
+                                        <p style="flex: auto;line-height: 4;float: left;padding-left: 20px;pointer-events: none;">{{p.name}}</p>
+                                        <el-button @click="addMember(p)" style="float: right;font-size: 5px;line-height: 1;margin-top: 6%;margin-right: 10px" type="primary" icon="el-icon-plus" circle></el-button>
+                                </div>
+                        </div>
+
+                        <div class="members">
+                                <el-empty style="padding-top: 100px" v-show="this.filLeaders.length===0 ? true : this.filLeaders[this.currentSelect].members.length===0" description="The corresponding member is not queried"></el-empty>
+                                <el-card class="box-card" v-for="(m,index) in (filLeaders.length===0? null : filLeaders[currentSelect].members)" :key="m.id">
+                                        <el-collapse v-model="activeNames" accordion>
+                                                <el-collapse-item :title="m.mebName" :name="index">
+                                                        <el-descriptions class="margin-top" title="Personal Information" :column="3">
+                                                                <template slot="extra">
+                                                                        <el-button @click="deleteMember(index,m.id)" type="danger" size="small">Delete</el-button>
+                                                                </template>
+                                                                <el-descriptions-item label="Name">{{ m.mebName }}</el-descriptions-item>
+                                                                <el-descriptions-item label="Age">{{ m.mebAge }}</el-descriptions-item>
+                                                                <el-descriptions-item label="Phone">{{ m.phone }}</el-descriptions-item>
+                                                        </el-descriptions>
+                                                </el-collapse-item>
+                                        </el-collapse>
+                                </el-card>
+                        </div>
+
+                        <el-dialog title="Add Member" :visible.sync="dialogFormVisible">
+                                <el-form>
+                                        <el-form-item label="Name" :label-width="formLabelWidth">
+                                                <el-input v-model="addingPeople.mebName"  autocomplete="off"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="Age" :label-width="formLabelWidth">
+                                                <el-input v-model="addingPeople.mebAge"  autocomplete="off"></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="Phone" :label-width="formLabelWidth">
+                                                <el-input v-model="addingPeople.phone"  autocomplete="off"></el-input>
+                                        </el-form-item>
+                                </el-form>
+                                <div slot="footer" class="dialog-footer">
+                                        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                                        <el-button type="primary" @click="addSubmit">Enter&nbsp;</el-button>
+                                </div>
+                        </el-dialog>
+
                 </div>
-        </div>
+        </transition>
 
-        <div class="members">
-                <el-empty style="padding-top: 100px" v-show="this.filLeaders.length===0 ? true : this.filLeaders[this.currentSelect].members.length===0" description="The corresponding member is not queried"></el-empty>
-                <el-card class="box-card" v-for="(m,index) in (filLeaders.length===0? null : filLeaders[currentSelect].members)" :key="m.id">
-                        <el-collapse v-model="activeNames" accordion>
-                                <el-collapse-item :title="m.mebName" :name="index">
-                                        <el-descriptions class="margin-top" title="Personal Information" :column="3">
-                                                <template slot="extra">
-                                                        <el-button @click="deleteMember(index,m.id)" type="danger" size="small">Delete</el-button>
-                                                </template>
-                                                <el-descriptions-item label="Name">{{ m.mebName }}</el-descriptions-item>
-                                                <el-descriptions-item label="Age">{{ m.mebAge }}</el-descriptions-item>
-                                                <el-descriptions-item label="Phone">{{ m.phone }}</el-descriptions-item>
-                                        </el-descriptions>
-                                </el-collapse-item>
-                        </el-collapse>
-                </el-card>
-        </div>
-
-        <el-dialog title="Add Member" :visible.sync="dialogFormVisible">
-                <el-form>
-                        <el-form-item label="Name" :label-width="formLabelWidth">
-                                <el-input v-model="addingPeople.mebName"  autocomplete="off"></el-input>
-                        </el-form-item>
-                        <el-form-item label="Age" :label-width="formLabelWidth">
-                                <el-input v-model="addingPeople.mebAge"  autocomplete="off"></el-input>
-                        </el-form-item>
-                        <el-form-item label="Phone" :label-width="formLabelWidth">
-                                <el-input v-model="addingPeople.phone"  autocomplete="off"></el-input>
-                        </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                        <el-button type="primary" @click="addSubmit">Enter&nbsp;</el-button>
-                </div>
-        </el-dialog>
-
-</div>
 </template>
 
 <script>

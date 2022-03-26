@@ -23,8 +23,8 @@
         </div>
 
         <div class="info">
-<!--                <BigRegional  v-show="!smallSelect&&smallSelect!==0" :currentBig="currentBig" />-->
-<!--                        <SmallRegion/>-->
+                <BigRegional  v-show="!smallSelect&&smallSelect!==0" :currentBig="currentBig" />
+                        <SmallRegion v-if="smallSelect||smallSelect===0" :currentSmall="currentSmall"/>
         </div>
 
 </div>
@@ -33,11 +33,9 @@
 <script>
 import BigRegional from "@/components/page/administrator/module/regional/BigRegional";
 import SmallRegion from "@/components/page/administrator/module/regional/SmallRegion";
-import Map from "@/components/page/administrator/module/regional/Map";
 export default {
         name: "RegionalInfo",
         components:{
-                Map,
                 SmallRegion,
                 BigRegional,
         },

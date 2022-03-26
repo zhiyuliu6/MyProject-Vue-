@@ -20,6 +20,7 @@
                                         <el-empty v-show="StaffLeaderEmpty" description="Not Bound">
                                                 <el-button @click="bindLeader" v-show="StaffLeaderEmpty" style="float: right;font-size: 5px;line-height: 1;" type="primary" icon="el-icon-plus" circle></el-button>
                                         </el-empty>
+
                                         <el-descriptions v-if="!StaffLeaderEmpty" class="margin-top" title="Staff Leader's Information" :column="3"  border>
                                                 <template slot="extra">
                                                         <el-button @click="remove" type="danger" size="small">Delete</el-button>

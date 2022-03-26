@@ -8,7 +8,7 @@
                         <el-button @click="addAcount" style="float: right;margin-right: 30px;margin-top: 14.5px" type="primary" icon="el-icon-circle-plus-outline">Add</el-button>
                 </div>
                 <div class="card">
-
+                        <transition-group appear name="animate__animated animate__bounce" enter-active-class="animate__bounceInRight" leave-active-class="animate__bounceOutLeft">
                         <el-card class="box-card" v-for="(people,index) in filstaffLeaders" :key="people.id">
                                 <el-collapse v-model="activeName" accordion>
                                         <el-collapse-item class="collapse" :title="people.name" :name="index">
@@ -24,11 +24,9 @@
                                                 <el-divider><i class="el-icon-s-custom"></i></el-divider>
                                                 <h3>Employee Members</h3>
                                                 <el-table
-
                                                         :data="people.members"
                                                         stripe
                                                         style="width: 100%">
-
                                                         <el-table-column
                                                                 prop="mebName"
                                                                 label="Name"
@@ -47,6 +45,7 @@
                                         </el-collapse-item>
                                 </el-collapse>
                         </el-card>
+                        </transition-group>
                         <el-empty v-show="isSearchEmpty" description="Sorry, I Didn't Find Any Relevant Data"></el-empty>
                 </div>
                 <el-backtop target=".card" :visibility-height="100"  style="font-size: 28px">
@@ -216,6 +215,7 @@ export default {
                                 this.axios.post(`${this.requestUrl}/addStaffLeader`, this.people).then(()=>{
                                         this.addFormVisible = false
                                         this.people.hiredate = this.currentTime
+                                        this.people.members = []
                                         this.staffLeaders.push(this.people)
                                         this.storeLeaders(this.staffLeaders)
                                         this.people = {}
@@ -287,6 +287,7 @@ export default {
         height: 90%;
         padding-left: 10px;
         overflow-y: auto;
+        overflow-x: hidden;
 }
 
 </style>
