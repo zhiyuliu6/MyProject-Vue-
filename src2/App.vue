@@ -1,7 +1,6 @@
 <template>
         <div style="height: 100%">
                 <Home v-if="isRouterAlive"/>
-
         </div>
 </template>
 
@@ -33,13 +32,13 @@ export default {
                 }
         },
         created() {
-                this.axios.get(`${this.requestUrl}/leader/allStaffLeader`).then((response)=>{
+                this.axios.get(`${this.requestUrl}/allStaffLeader`).then((response)=>{
                         this.storeLeaders(response.data)
                 }).catch((reason)=>{
                         console.log(reason)
                 })
 
-                this.axios.get(`${this.requestUrl}/region/getAllRegion`).then((response)=>{
+                this.axios.get(`${this.requestUrl}/getAllRegion`).then((response)=>{
                         this.storeRegional(response.data)
                 }).catch((reason)=>{
                         console.log(reason)

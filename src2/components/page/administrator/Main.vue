@@ -21,6 +21,5 @@ export default {
         line-height: 70px;
         background-color: #e9eef3;
         overflow-y: hidden;
-        overflow-x: hidden;
 }
 </style>

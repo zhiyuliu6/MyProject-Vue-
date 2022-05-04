@@ -91,8 +91,8 @@
                 <el-dialog title="To Bind StaffLeader" :visible.sync="dialogFormVisible">
                         <el-form>
                                 <el-form-item label="The StaffLeader To Bind" :label-width="formLabelWidth">
-                                        <el-select v-model="bindNumber"  placeholder="Please select Staff Leader">
-                                                <el-option v-for="(p,index) in noBind" :label="p.name" :value="index" :key="index"></el-option>
+                                        <el-select v-model="bindVal"  placeholder="Please select Staff Leader">
+                                                <el-option v-for="(p,index) in noBind" :label="p.name" :value="p" :key="index"></el-option>
                                         </el-select>
                                 </el-form-item>
                         </el-form>
@@ -144,7 +144,6 @@ export default {
                         StaffLeaderEmpty:false,
                         dialogFormVisible:false,
                         formLabelWidth:'300px',
-                        bindNumber:null,
                         bindVal:null,
                         addFormVisible:false,
                         newSRegional:{
@@ -175,13 +174,12 @@ export default {
                         this.dialogFormVisible = true
                 },
                 bindSubmit(){
-                        this.bindVal = this.noBind[this.bindNumber]
                         if (this.bindVal){
                                 const time = this.bindVal.hiredate
                                 this.bindVal.regionSoilId = this.currentSmall.id
                                 this.bindVal.hiredate = new Date(this.bindVal.hiredate).getTime()
                                 console.log(this.bindVal.regionSoilId)
-                                this.axios.post(`${this.requestUrl}/leader/updateStaffLeader`,this.bindVal).then(()=>{
+                                this.axios.post(`${this.requestUrl}/updateStaffLeader`,this.bindVal).then(()=>{
                                         this.bindVal.hiredate = time
                                         this.updateLeader(this.bindVal)
 
@@ -212,7 +210,7 @@ export default {
                                 const send = JSON.parse(JSON.stringify(this.currentStaffLeader));
                                 const time = send.hiredate
                                 send.hiredate = new Date(send.hiredate).getTime()
-                                this.axios.post(`${this.requestUrl}/leader/unBindRegion`,send).then(()=>{
+                                this.axios.post(`${this.requestUrl}/unBindRegion`,send).then(()=>{
                                         send.hiredate = time
                                         this.$delete(send,'regionSoilId')
                                         this.updateLeader(send)
@@ -297,7 +295,6 @@ export default {
 
 <style scoped>
 .selectStyle{
-        overflow-x: hidden;
         background-color: #edf5ff;
         border-color: #d9eaff;
         color: #509dfd;

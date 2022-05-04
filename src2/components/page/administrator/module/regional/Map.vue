@@ -80,10 +80,12 @@ export default {
                         this.center.lat = 39.915
                         this.zoom = 15
                 },
+
                 toggle (name) {
                         this.polygonPath.paths = []
                         this[name].editing = !this[name].editing
                 },
+
                 syncPolygon (e) {
                         if (!this.polygonPath.editing) {
                                 return
@@ -101,6 +103,7 @@ export default {
                         }
                         this.$set(path, path.length - 1, e.point)
                 },
+
                 newPolygon () {
                         if (!this.polygonPath.editing) {
                                 return
@@ -153,7 +156,7 @@ export default {
                                 }
                                 send.push(obj)
                         }
-                        this.axios.post(`${this.requestUrl}/draw/addPoint`,send).then(()=>{
+                        this.axios.post(`${this.requestUrl}/addPoint`,send).then(()=>{
                                 this.$message({
                                         message: 'Congratulations,add Successful',
                                         type: 'success'
@@ -163,7 +166,7 @@ export default {
                         })
                 },
                 addSubmit(paths){
-                        this.axios.post(`${this.requestUrl}/region/addSmallRegional`,{
+                        this.axios.post(`${this.requestUrl}/addSmallRegional`,{
                                 regionSoil:this.newSRegional,
                                 acreage:parseFloat(GeoUtils.getPolygonArea(paths).toFixed(4))
                         }).then((response)=>{

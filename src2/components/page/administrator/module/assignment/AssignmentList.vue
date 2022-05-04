@@ -121,7 +121,6 @@ export default {
 
 <style scoped>
 .main {
-        overflow-x: hidden;
         width: 100%;
         height: 100%;
         background-color: white;

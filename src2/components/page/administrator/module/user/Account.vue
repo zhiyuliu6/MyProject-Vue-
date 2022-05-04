@@ -150,7 +150,7 @@ export default {
                                         type: 'warning'
                                 }).then(() => {
                                         this.tableData.splice(index,1)
-                                        this.axios.post(`${this.requestUrl}/account/deleteAccount`,{
+                                        this.axios.post(`${this.requestUrl}/deleteAccount`,{
                                                 id:row.id
                                         }).then(()=>{
                                                 this.searchUser()
@@ -171,10 +171,9 @@ export default {
                 submit(){
                         this.tableData[this.editIndex] =JSON.parse(JSON.stringify(this.people));
                         this.tableData[this.editIndex].date = new Date(this.tableData[this.editIndex].date).getTime()
-                        this.axios.post(`${this.requestUrl}/account/updateAccount`, this.tableData[this.editIndex])
+                        this.axios.post(`${this.requestUrl}/updateAccount`, this.tableData[this.editIndex])
                         this.dialogFormVisible =false
                         this.searchUser()
-                        this.reload()
                         this.people = {}
                 },
                 EditCancel(){
@@ -185,7 +184,7 @@ export default {
                         const a = this.tableData.filter((p)=>{
                                 return p.name.indexOf(this.keyWord) !== -1
                         })
-                        this.filPerons = a.slice((this.curPage-1)*this.pageSize,this.curPage*this.pageSize)
+                        this.filPerons = a.splice(this.curPage*this.pageSize-5,this.curPage*this.pageSize)
                 },
                 reset(){
                         this.keyWord = ''
@@ -194,7 +193,7 @@ export default {
                 addAcount(){
                         this.addFormVisible = true
                         this.people = {loginType: '',name:'',usr:'',psw:'',date:''}
-                        this.axios.get(`${this.requestUrl}/leader/getEmptyAccount`).then((response)=>{
+                        this.axios.get(`${this.requestUrl}/getEmptyAccount`).then((response)=>{
                                 this.emptyAccounts = response.data
                         })
                 },
@@ -212,18 +211,18 @@ export default {
                                 this.tableData.push(this.people)
                                 this.addFormVisible = false
                                 this.people.date = new Date(this.people.date).getTime()
-                                this.axios.post(`${this.requestUrl}/account/addAccount`, this.people).then(()=>{
+                                this.axios.post(`${this.requestUrl}/addAccount`, this.people).then(()=>{
                                         const map = {
                                                 id:this.StaffLeaderId,
                                                 accountId:this.people.id
                                         }
 
                                         if(this.people.loginType==='Administrator'){
-
+                                                this.searchUser()
                                                 this.reload()
                                         }else {
-                                                this.axios.post(`${this.requestUrl}/leader/updateEmptyAccount`, map).then(()=>{
-
+                                                this.axios.post(`${this.requestUrl}/updateEmptyAccount`, map).then(()=>{
+                                                        this.searchUser()
                                                         this.reload()
                                                 })
                                         }
@@ -243,7 +242,7 @@ export default {
                 }
         },
         beforeMount() {
-                this.axios.get(`/account/allAccount`).then((response)=>{
+                this.axios.get(`${this.requestUrl}/allAccount`).then((response)=>{
                         this.tableData = response.data;
                         this.total=this.tableData.length
                         this.searchUser()
@@ -271,7 +270,6 @@ export default {
 
 <style scoped>
 .First{
-        overflow-x: hidden;
         height: 100%;
         width: 100%;
         background-color: white;
@@ -287,5 +285,6 @@ export default {
 }
 .el-input{
         width: 20%;
+        float: left;
 }
 </style>

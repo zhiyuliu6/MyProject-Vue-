@@ -225,7 +225,7 @@ export default {
                 }
         },
         mounted() {
-                this.axios.get(`${this.requestUrl}/region/regionRelationship`).then((response)=>{
+                this.axios.get(`${this.requestUrl}/regionRelationship`).then((response)=>{
                         this.regionRelationship=response.data
                         this.loading = false
                 })
@@ -308,7 +308,6 @@ export default {
 
 <style scoped>
 .main {
-        overflow-x: hidden;
         width: 100%;
         height: 100%;
         background-color: white;

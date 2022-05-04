@@ -6,10 +6,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueRouter from "vue-router";
 import router from './router'
 import VueAxios from 'vue-axios'
-import axios from "@/utils/http";
+import axios from "axios";
 import store from './store/index'
 import 'animate.css';
+
 Vue.config.productionTip = false
+
 Vue.use(VueAxios,axios);
 Vue.use(ElementUI,{locale})
 Vue.use(VueRouter)

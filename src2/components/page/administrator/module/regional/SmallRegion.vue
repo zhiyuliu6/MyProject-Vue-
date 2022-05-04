@@ -110,7 +110,6 @@ export default {
 
 <style scoped>
 .smallRegion{
-        overflow-x: hidden;
         width: 100%;
         height: 100%;
 }

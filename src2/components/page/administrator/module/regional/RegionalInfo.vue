@@ -52,7 +52,7 @@ export default {
 
         },
         beforeMount() {
-                this.axios.get(`${this.requestUrl}/region/getAllRegionInfo`).then((response)=>{
+                this.axios.get(`${this.requestUrl}/getAllRegionInfo`).then((response)=>{
                           this.bigRegion= response.data
                 })
         },
@@ -74,7 +74,6 @@ export default {
 
 <style scoped>
 .main{
-        overflow-x: hidden;
         width: 100%;
         height: 100%;
 }

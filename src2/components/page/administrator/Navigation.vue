@@ -28,12 +28,12 @@
                                 <template slot="title"><i class="nav el-icon-document-checked">&nbsp; &nbsp;&nbsp; &nbsp;Approval</i></template>
 
                                         <el-menu-item  index="/applyList">Apply List</el-menu-item>
-                                        <el-menu-item  index="/applyHistory">Approval History</el-menu-item>
+                                        <el-menu-item  index="5-2">Approval History</el-menu-item>
                         </el-submenu>
 
                 <el-submenu index="6">
                                 <template slot="title"><i class="nav el-icon-takeaway-box">&nbsp; &nbsp;&nbsp; &nbsp;Inventory</i></template>
-                                        <el-menu-item  index="/inventoryList">Inventory list</el-menu-item>
+                                        <el-menu-item  index="6-1">Inventory list</el-menu-item>
                                         <el-menu-item  index="6-2">Goods Add</el-menu-item>
                                         <el-menu-item  index="6-3">Inventory Records</el-menu-item>
                 </el-submenu>

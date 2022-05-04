@@ -105,7 +105,6 @@
 
 <script>
 import dayjs from 'dayjs'
-import {nanoid} from 'nanoid'
 import {mapState,mapMutations} from 'vuex'
 export default {
         name: "employee",
@@ -138,10 +137,10 @@ export default {
                                 cancelButtonText: 'Cancel',
                                 type: 'warning'
                         }).then(() => {
-                                this.axios.post(`${this.requestUrl}/leader/deleteStaffLeader`, {
+                                this.axios.post(`${this.requestUrl}/deleteStaffLeader`, {
                                         id:this.staffLeaders[index].id
                                 }).then(()=>{
-                                        this.axios.post(`${this.requestUrl}/account/deleteAccount`, {
+                                        this.axios.post(`${this.requestUrl}/deleteAccount`, {
                                                 id:this.staffLeaders[index].accountId
                                         }).then(()=>{
                                                 this.staffLeaders.splice(index,1)
@@ -167,7 +166,7 @@ export default {
                 submit(){
                         this.staffLeaders[this.editIndex] =JSON.parse(JSON.stringify(this.people));
                         this.staffLeaders[this.editIndex].hiredate = new Date(this.staffLeaders[this.editIndex].hiredate).getTime()
-                        this.axios.post(`${this.requestUrl}/leader/updateStaffLeader`, this.staffLeaders[this.editIndex])
+                        this.axios.post(`${this.requestUrl}/updateStaffLeader`, this.staffLeaders[this.editIndex])
                         this.dialogFormVisible =false
                         this.storeLeaders(this.staffLeaders)
                         this.searchUser()
@@ -192,6 +191,7 @@ export default {
                         console.log(this.currentTime)
                         this.currentTime = dayjs(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
                         this.people = {
+                                id:'',
                                 name: '',
                                 phone:'',
                                 age:'',
@@ -200,6 +200,7 @@ export default {
                         }
                 },
                 addSubmit() {
+                        this.people.id = this.staffLeaders.length+1
                         for (const attribute in this.people) {
                                 if(this.people[attribute].length === 0){
                                         this.isEmpty = true
@@ -210,11 +211,9 @@ export default {
                         }
                         if(!this.isEmpty) {
                                 this.people.regionSoilId = ''
-                                this.people.id = ''
                                 this.people.hiredate = new Date(this.currentTime).getTime()
-                                this.axios.post(`${this.requestUrl}/leader/addStaffLeader`, this.people).then((response)=>{
+                                this.axios.post(`${this.requestUrl}/addStaffLeader`, this.people).then(()=>{
                                         this.addFormVisible = false
-                                        this.people.id = response.data
                                         this.people.hiredate = this.currentTime
                                         this.people.members = []
                                         this.staffLeaders.push(this.people)
@@ -258,7 +257,6 @@ export default {
         background-color: white;
         box-shadow: 2px 2px 15px silver;
         line-height: 70px;
-        overflow-x: hidden;
 }
 .el-dialog__body .el-input{
         width: 50%;
@@ -268,6 +266,7 @@ export default {
 }
 .el-input{
         width: 20%;
+        float: left;
 }
 .el-collapse{
         border-top: none;

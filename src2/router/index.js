@@ -9,8 +9,6 @@ import RegionalInfo from "@/components/page/administrator/module/regional/Region
 import AddAssignment from "@/components/page/administrator/module/assignment/AddAssignment";
 import AssignmentList from "@/components/page/administrator/module/assignment/AssignmentList";
 import ApplyList from "@/components/page/administrator/module/approval/ApplyList";
-import ApplyHistory from "@/components/page/administrator/module/approval/ApplyHistory";
-import InventoryList from "@/components/page/administrator/module/inventory/InventoryList";
 
 
 //创建并暴露一个路由器
@@ -47,14 +45,6 @@ export default new VueRouter({
                         {
                                 path:'/applyList',
                                 component:ApplyList
-                        },
-                        {
-                                path:'/applyHistory',
-                                component:ApplyHistory
-                        },
-                        {
-                                path:'/inventoryList',
-                                component:InventoryList
                         }
                 ]
 })

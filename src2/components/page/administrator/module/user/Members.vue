@@ -139,7 +139,7 @@ export default {
                                 }
                         }
                         if(!this.isEmpty) {
-                                this.axios.post(`${this.requestUrl}/members/addStaffMembers`,this.addingPeople).then(()=>{
+                                this.axios.post(`${this.requestUrl}/addStaffMembers`,this.addingPeople).then(()=>{
                                         this.dialogFormVisible = false
                                         this.updateLeader(send)
                                         this.searchUser()
@@ -174,7 +174,7 @@ export default {
                                 cancelButtonText: 'Cancel',
                                 type: 'warning'
                         }).then(() => {
-                                this.axios.post(`${this.requestUrl}/members/deleteStaffMember`,{
+                                this.axios.post(`${this.requestUrl}/deleteStaffMember`,{
                                         id:mId
                                 }).then(()=>{
                                         this.VdeleteMember(send)
@@ -210,7 +210,7 @@ export default {
                                         params:{
                                                 id:this.filLeaders[this.currentSelect].id
                                         },
-                                        url:this.requestUrl+'/members/deleteAllStaffMember'
+                                        url:this.requestUrl+'/deleteAllStaffMember'
                                 }).then(()=>{
                                         this.DeleteAll(this.filLeaders[this.currentSelect].id)
                                         this.searchUser()
@@ -258,7 +258,6 @@ export default {
         background-color: white;
         box-shadow: 2px 2px 15px silver;
         line-height: 70px;
-        overflow-x: hidden;
 }
 .LeaderName{
         height: 13%;
@@ -291,6 +290,7 @@ export default {
 }
 .el-input{
         width: 20%;
+        float: left;
 }
 .showLeaders{
         width: 15%;

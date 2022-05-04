@@ -121,7 +121,7 @@ export default {
                         option && myChart.setOption(option);
 
 
-                        this.axios.get(`${this.requestUrl}/region/allRainFell`,{
+                        this.axios.get(`${this.requestUrl}/allRainFell`,{
                                 params:{
                                         id: this.currentBig.regionId
                                 }
@@ -215,7 +215,7 @@ export default {
                                 option2 && myChart2.setOption(option2);
                         })
 
-                        this.axios.get(`${this.requestUrl}/treeStare/allTypeTree`,{
+                        this.axios.get(`${this.requestUrl}/allTypeTree`,{
                                 params:{
                                         id: this.currentBig.regionId
                                 }
@@ -391,7 +391,6 @@ export default {
 
 <style scoped>
 #area{
-        overflow-x: hidden;
         padding-top: 20px;
         float: right;
         height: 47%;
